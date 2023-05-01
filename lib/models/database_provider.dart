@@ -126,9 +126,11 @@ class DatabaseProvider with ChangeNotifier {
         whereArgs: [category], // this category.
       )
           .then((_) {
+            print(category);
         // after updating in database. update it in our in-app memory too.
         var file =
             _categories.firstWhere((element) => element.title == category);
+        print('sd');
         file.entries = nEntries;
         file.totalAmount = nTotalAmount;
         notifyListeners();
@@ -146,6 +148,9 @@ class DatabaseProvider with ChangeNotifier {
     );
   }
   Future<void> addExpense(Expense exp) async {
+    if(exp.amount < 0){
+      return;
+    }
     final db = await database;
     await db.transaction((txn) async {
       await txn
@@ -169,9 +174,10 @@ class DatabaseProvider with ChangeNotifier {
         // notify the listeners about the change in value of '_expenses'
         notifyListeners();
         var ex = findCategory(exp.category);
+        print(exp.category+'13');
         updateCategory(
             exp.category, ex.entries + 1, ex.totalAmount + exp.amount);
-
+        print(exp.category+'23');
         var budget_check = ex.totalAmount + exp.amount;
         print(budget_check);
         var eCI= BudgetCategories.categories.indexWhere((c) => c.category == exp.category);
@@ -235,6 +241,7 @@ class DatabaseProvider with ChangeNotifier {
   }
 
   ExpenseCategory findCategory(String title) {
+    print('sea'+title);
     return _categories.firstWhere((element) => element.title == title);
   }
 

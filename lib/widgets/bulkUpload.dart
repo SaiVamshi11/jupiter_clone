@@ -27,20 +27,24 @@ class _bulkUploadState extends State<bulkUpload> {
   Widget build(BuildContext context) {
     final provider = Provider.of<DatabaseProvider>(context, listen: false);
     return Scaffold(
-        appBar: AppBar(
-          systemOverlayStyle: const SystemUiOverlayStyle(
-            // Status bar color
-            statusBarColor: Colors.white,
-            // Status bar brightness (optional)
-            statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
-            statusBarBrightness: Brightness.light, // For iOS (dark icons)
-          ),
-          title: const Text("Bulk Upload",
-              style: TextStyle(color: Colors.white,
-                fontSize: 20.0,)
-          ),
+        // extendBody: true,
+        appBar: AppBar (
+          title: const Text('Upload Excel File'),
+          backgroundColor: Colors.blue[400],
+          // systemOverlayStyle: const SystemUiOverlayStyle(
+          //   // Status bar color
+          //   statusBarColor: Colors.white,
+          //   // Status bar brightness (optional)
+          //   statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+          //   statusBarBrightness: Brightness.light, // For iOS (dark icons)
+          // ),
+          // title: const Text("Bulk Upload",
+          //     style: TextStyle(color: Colors.white,
+          //       fontSize: 20.0,)
+          // ),
         ),
-        body: Column(
+        body: SafeArea(
+          child: Column(
           children: [
             ElevatedButton(
               child: const Text("Upload FIle"),
@@ -122,7 +126,7 @@ class _bulkUploadState extends State<bulkUpload> {
                     date: DateTime.parse(_date.toString()),
                     category: _initialValue.toString(),
                   );
-                  print('intoadd');
+                  print(i);
                   await provider.addExpense(file);
                   i = i+1;
                   print(i);
@@ -135,6 +139,7 @@ class _bulkUploadState extends State<bulkUpload> {
               label: const Text('Add Expense'),
             ),
           ],
+        ),
         )
     );
 

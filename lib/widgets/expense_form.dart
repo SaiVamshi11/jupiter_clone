@@ -115,7 +115,8 @@ class _ExpenseFormState extends State<ExpenseForm> {
                     category: _initialValue,
                   );
                   // add it to database.
-                  provider.addExpense(file);
+                  // if(file.amount >= 0)
+                    provider.addExpense(file);
                   // close the bottomsheet
                   Navigator.of(context).pop();
                 }
